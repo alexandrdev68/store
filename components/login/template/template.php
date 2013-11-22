@@ -1,5 +1,5 @@
 <div class="row-fluid">
-		<div class="span3 offset5 text-center"><h4>Bike manager</h4></div>
+		<div class="span3 offset5 text-center"><h4>Store manager</h4></div>
 </div>
 <div class="row-fluid">
 	<div class="span12 text-center">
