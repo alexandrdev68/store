@@ -8,7 +8,6 @@ if(isset($_POST['action'])){
 	require_once($_SERVER['DOCUMENT_ROOT'].'/php_interface/db_init_inc.php');
 	$temp = new TEMP();
 	TEMP::component('localization', array('language'=>isset($_SESSION['user_lang']) ? $_SESSION['user_lang'] : 'ua'), false);
-	require_once('actions_lib_inc.php');
 	$actions = new Actions();
 	$method = $_POST['action'].'_handler';
 	if(method_exists($actions, $method)){
