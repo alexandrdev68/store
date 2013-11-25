@@ -1,9 +1,9 @@
 <?
-require_once('dbase_lib_inc.php');
-require_once('temp_lib_inc.php');
-require_once ('user_lib_inc.php');
-require_once ('bike_lib_inc.php');
-require_once ('graph_lib_inc.php');
+spl_autoload_register('class_autoload');
+
+function class_autoload($class){
+	require_once strtolower($class).'_lib_inc.php';
+}
 
 //ajax handler
 require_once('ajax_engine_inc.php');
