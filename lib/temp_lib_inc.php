@@ -5,6 +5,7 @@
 	 */
 	static $current = 'store';
     static $header_path;
+    static $title = 'store';
     static $index_path;
     static $footer_path;
     static $styles_dir;
