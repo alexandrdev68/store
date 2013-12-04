@@ -3,7 +3,7 @@
 	 * название текущего шаблона (совпадает с названием папки в которой хранится шаблон)
 	 * @var string
 	 */
-	static $current = 'bike';
+	static $current = 'store';
     static $header_path;
     static $index_path;
     static $footer_path;
