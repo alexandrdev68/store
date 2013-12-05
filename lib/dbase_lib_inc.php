@@ -16,7 +16,36 @@
     
     
     public function m_connect(){
-        $conn = mysql_connect($this->host, $this->user, $this->passw);
+		try{
+		   DB::$database = new PDO('mysql:host='.$arDBParams['db_host'].';dbname='.$arDBParams['db_name'], 
+		    										$arDBParams['db_user'], $arDBParams['db_passw']);
+		   foreach(DB::$database->query('SHOW TABLES') as $row) {
+		        $arTables[] = $row[0];
+		   }
+		}catch (PDOException $e) {
+		    print "Error!: " . $e->getMessage() . "<br/>";
+		    die();
+		}
+    	
+    	
+    function get_data($arParam = array('table'=>'', 'fields'=>'', 'where'=>'', 'limit'=>'10', 'sort'=>'ASC')){
+	$query = 'SELECT '.(@$arParam['fields'] == '' || !isset($arParam['fields']) ? '*' : $arParam['fields']).' FROM '
+						.$arParam['table'].(isset($arParam['where']) ? ' WHERE '.$arParam['where'] : '')
+						.(isset($arParam['limit']) ? ' LIMIT '.$arParam['limit'] : '')
+						.@$arParam['sort'];
+	try{
+		foreach(DB::$database->query($query, 2) as $row) {
+	        $arData[] = $row;
+	    }
+	}catch(PDOException $e){
+		return array('status'=>101, 'data'=>false, 'message'=>'query: '.$query.' return error: '.$e->getMessage());
+	}
+	
+    return array('status'=>0, 'data'=>$arData, 'message'=>'query: '.$query.' OK.');
+}
+    	
+    	
+    	$conn = mysql_connect($this->host, $this->user, $this->passw);
         if($conn === false){
             $this->addMess('mysql connection error');
             return false;
