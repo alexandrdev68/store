@@ -1,0 +1,18 @@
+<IfModule mod_env.c>
+  SetEnv SITE_NEW_PERIOD '7 days'
+  SetEnv SITE_FEATURE_PERIOD '7 days'
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+
+  AddDefaultCharset UTF-8
+
+  DirectoryIndex index.php
+
+  RewriteCond %{REQUEST_URI} !([templates]/) [NC]
+  RewriteRule ([^.]+)/([0-9]{0,}) index.php?page=$1&id=$2
+ 
+  #RewriteRule (site/) / [R=301,L]
+
+</IfModule>
