@@ -1,2 +1,3 @@
-<?require_once('php_interface/init.php');
-require_once('templates/index.php');?>
+<?php
+require_once('php_interface/init.php');
+?>

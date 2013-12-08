@@ -15,14 +15,18 @@
     static $Lang = array();
 	
     function __construct(){
-		self::$curr_temp_path = 'templates/'.self::$current;
+		
+        
+    }
+    
+    static public function init($temp_name){
+    	self::$curr_temp_path = 'templates/'.$temp_name;
     	self::$header_path = self::$curr_temp_path.'/header.php';
         self::$index_path = self::$curr_temp_path.'/index.php';
         self::$footer_path = self::$curr_temp_path.'/footer.php';
         self::$styles_dir = self::$curr_temp_path."/css";
         self::$js_dir = self::$curr_temp_path.'/js';
         self::$curr_lang = 'ua';
-        
     }
     
     /**

@@ -3,7 +3,7 @@
     public $user;
     public $passw;
     public $base;
-    public $PDOConnection;
+    static public $PDOConnection;
     static public $messages = array();
     
     static protected function addMess($message){
@@ -17,26 +17,14 @@
     
     
     public function m_connect(){
-	try{
-	    $this->PDOConnection = new PDO('mysql:host='.$this->host.';dbname='.$this->base, $this->user, $this->passw);
-	}catch (PDOException $e) {
-	    print "Error!: " . $e->getMessage() . "<br/>";
-	    die();
-	}
+		try{
+		    self::$PDOConnection = new PDO('mysql:host='.$this->host.';dbname='.$this->base, $this->user, $this->passw);
+		}catch (PDOException $e) {
+		    $this->addMess($e->getMessage());
+		    return false;
+		}
     	
-    	$conn = mysql_connect($this->host, $this->user, $this->passw);
-        if($conn === false){
-            $this->addMess('mysql connection error');
-            return false;
-        }elseif(!mysql_select_db($this->base)){
-            $this->addMess('cannot connect to database '.$this->base);
-            return false;
-        }else{
-           $this->addMess('mysql connected');
-           mysql_set_charset('utf8');
-		   ob_clean();
-           return true; 
-        }
+    	return true;
     }
     
     public function get_data($arParam = array('table'=>'', 'fields'=>'', 'where'=>'', 'limit'=>'10', 'sort'=>'ASC')){
@@ -45,7 +33,7 @@
 						.(isset($arParam['limit']) ? ' LIMIT '.$arParam['limit'] : '')
 						.@$arParam['sort'];
 	try{
-		foreach(DB::$database->query($query, 2) as $row) {
+		foreach(self::$PDOConnection->query($query, 2) as $row) {
 	        $arData[] = $row;
 	    }
 	}catch(PDOException $e){
@@ -56,18 +44,15 @@
     }
     
     static protected function getData($sql){
-    	$result = mysql_query($sql);
-    	if($result !== false){
-			while($arResult[] = mysql_fetch_assoc($result)){
-				
-			};
-			array_pop($arResult);
-			return $arResult;
-    	}else{
-    		//echo($sql);
-            self::addMess('mysql request error: '.$sql);
-    		return false;
-    	}
+    	try{
+			foreach(self::$PDOConnection->query($sql, 2) as $row) {
+		        $arResult[] = $row;
+		    }
+		    return $arResult;
+		}catch(PDOException $e){
+			self::addMess('mysql request error: '.$e->getMessage());
+			return false;
+		}
     }
     
     
@@ -91,12 +76,13 @@
 	 * @var public function
 	 */
 	public function getArray($query){
-		$result = mysql_query($query);
-		if($result === false) return false;
-		while($arResult[] = mysql_fetch_assoc($result)){
-			
-		};
-		array_pop($arResult);
+		try{
+			foreach(self::$PDOConnection->query($sql, 2) as $row) {
+		        $arResult[] = $row;
+		    }
+		}catch(PDOException $e){
+			self::addMess('mysql request error: '.$e->getMessage());
+		}
 		return count($arResult > 0) ? $arResult : false;
 	}
     
@@ -107,9 +93,16 @@
 	 */
 	static public function getCountRowsOfTable($tablename){
 		$sql = 'SELECT COUNT(*) FROM `'.$tablename.'`';
-		$res = mysql_query($sql);
-		$rows = mysql_fetch_array($res);
-		return $rows[0];
+		
+		try{
+			foreach(self::$PDOConnection->query($sql, 2) as $row) {
+		        $arResult[] = $row;
+		    }
+		}catch(PDOException $e){
+			self::addMess('mysql request error: '.$e->getMessage());
+		}
+
+		return $arResult[0];
 	}
     
 }?>
