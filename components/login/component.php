@@ -1,3 +1,3 @@
 <?php
-if(isset($_SESSION['CURRUSER'])) header('Location: /main');
+if(isset($_SESSION['CURRUSER'])) header('Location: /main/');
 ?>

@@ -16,7 +16,7 @@ function login_init(){
 			url: window.location,
 			success: function(response) {
 				if(response.status == 'ok'){
-					window.location.href = '/main';
+					window.location.href = '/';
 				}else if(response.status == 'bad'){
 					$('div._loginAlert strong').text("<?=TEMP::$Lang['warning']?>!");
 					$('span._messtext').text(response.message);

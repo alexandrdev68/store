@@ -1,4 +1,4 @@
 <?$db->user = 'root';
 $db->passw = 'secret';
-$db->base = 'bike';
+$db->base = 'store';
 $db->m_connect()?>

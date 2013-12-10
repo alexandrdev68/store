@@ -7,8 +7,21 @@
     static public $messages = array();
     
     static protected function addMess($message, $arData = array()){
+        $now = date('Y-m-d H:i:s', time());
+        $request = (isset($arData['request']) ? $arData['request'] : '');
+        $response = (isset($arData['response']) ? $arData['response'] : '');
+        $operation = (isset($arData['operation']) ? $arData['operation'] : '');
+        $status = (isset($arData['status']) ? $arData['status'] : '');
+        self::setRecord(array('table'=>'engine_logs', 'fields'=>array(
+        												'log_date'=>$now,
+        												'operation'=>$operation,
+        												'request'=>$request,
+        												'response'=>$response,
+        												'status'=>$status,
+        												'message'=>$message												
         
-    	self::$messages[] = $message;
+        										)));
+        self::$messages[] = $message;
     }
     
     static protected function clearMess(){
@@ -19,9 +32,16 @@
     
     public function m_connect(){
 		try{
-		    self::$PDOConnection = new PDO('mysql:host='.$this->host.';dbname='.$this->base, $this->user, $this->passw);
+		    $DbaseParams = 'mysql:host='.$this->host.';dbname='.$this->base;
+			self::$PDOConnection = new PDO($DbaseParams, $this->user, $this->passw);
 		}catch (PDOException $e) {
-		    $this->addMess($e->getMessage());
+			//если не подключились к БД - выход их программы
+			if(!is_object(self::$PDOConnection)){
+				ob_clean();
+				echo json_encode(array('status'=>'bad', 'message'=>'can\'t connect to mySQL'));
+				exit;
+			};
+			$this->addMess($e->getMessage());
 		    return false;
 		}
     	
@@ -45,6 +65,7 @@
     }
     
     static protected function getData($sql){
+    	$arResult = array();
     	try{
 			foreach(self::$PDOConnection->query($sql, 2) as $row) {
 		        $arResult[] = $row;
@@ -119,35 +140,36 @@
 	 * @var static public function
 	 */
 	static public function setRecord($arParams, $filtr = true){
-	if(isset($arParams['table']) && count($arParams['fields']) > 0){
-		$sql_p1 = 'INSERT INTO `'.$arParams['table'].'` (';
-	//формирование sql запроса
-		$sql_p2 = ") VALUES (";
-		$count = count($arParams['fields']);
-		$i = 1;
-		foreach($arParams['fields'] as $index=>$field){
-				$sql_p1 .= $index;
-				$sql_p2 .= (gettype($field) == 'integer' ? "" : "'").($filtr === true ? self::dataFilter($field) : $field).(gettype($field) == 'integer' ? "" : "'");
-				if($i < $count){
-					$sql_p2 .=', ';
-					$sql_p1 .=', '; 
-				}
-				else $sql_p2 .= ')';
-					
-			$i++;
-		}
-		
-		$res = true;
-		try{
-			$count = self::$PDOConnection->exeс($sql_p1.$sql_p2);
-			if($count == 0) $error = self::$PDOConnection->errorCode();
-			else $error = 0;
-		}catch(Exception $e){
-			$res = false;
-			$mess = $e->getMessage();
-		}
-		
-		return ($res === true && $error === 0) ? array('status'=>true) : array('status'=>false, 'message'=>'mySQL error#'.$error, 'sql'=>$sql_p1.$sql_p2, 'error'=>$error);
-	};
+		if(isset($arParams['table']) && count($arParams['fields']) > 0){
+			$sql_p1 = 'INSERT INTO `'.$arParams['table'].'` (';
+		//формирование sql запроса
+			$sql_p2 = ") VALUES (";
+			$count = count($arParams['fields']);
+			$i = 1;
+			foreach($arParams['fields'] as $index=>$field){
+					$sql_p1 .= $index;
+					$sql_p2 .= (gettype($field) == 'integer' ? "" : "'").($filtr === true ? self::dataFilter($field) : $field).(gettype($field) == 'integer' ? "" : "'");
+					if($i < $count){
+						$sql_p2 .=', ';
+						$sql_p1 .=', '; 
+					}
+					else $sql_p2 .= ')';
+						
+				$i++;
+			}
+			
+			$res = true;
+			try{
+				$count = self::$PDOConnection->exec($sql_p1.$sql_p2);
+				if($count == 0) $error = self::$PDOConnection->errorCode();
+				else $error = 0;
+			}catch(Exception $e){
+				$res = false;
+				$mess = $e->getMessage();
+			}
+			
+			return ($res === true && $error === 0) ? array('status'=>true) : array('status'=>false, 'message'=>'mySQL error#'.$error, 'sql'=>$sql_p1.$sql_p2, 'error'=>$error);
+		};
+	}
     
 }?>
