@@ -6,8 +6,9 @@
     static public $PDOConnection;
     static public $messages = array();
     
-    static protected function addMess($message){
-        self::$messages[] = $message;
+    static protected function addMess($message, $arData = array()){
+        
+    	self::$messages[] = $message;
     }
     
     static protected function clearMess(){
@@ -104,5 +105,49 @@
 
 		return $arResult[0];
 	}
+	
+	
+	/**
+	 * Добавляет в заданную таблицу запись с указанными ячейками
+	 * Пример: DBase::setRecord(array('table'=>'gm_log_operation', 'fields'=>array(
+     *          													'dt_created'=>date('Y-m-d h:i:s', time()),
+     *          													'operation'=>'login ',
+     *         													'status'=>$err_no,
+     *          													'input_data'=>'login: '.$ldap_login,
+     *          													'response_str'=>$this->db->add_slash($err_text)
+     *          												)));;
+	 * @var static public function
+	 */
+	static public function setRecord($arParams, $filtr = true){
+	if(isset($arParams['table']) && count($arParams['fields']) > 0){
+		$sql_p1 = 'INSERT INTO `'.$arParams['table'].'` (';
+	//формирование sql запроса
+		$sql_p2 = ") VALUES (";
+		$count = count($arParams['fields']);
+		$i = 1;
+		foreach($arParams['fields'] as $index=>$field){
+				$sql_p1 .= $index;
+				$sql_p2 .= (gettype($field) == 'integer' ? "" : "'").($filtr === true ? self::dataFilter($field) : $field).(gettype($field) == 'integer' ? "" : "'");
+				if($i < $count){
+					$sql_p2 .=', ';
+					$sql_p1 .=', '; 
+				}
+				else $sql_p2 .= ')';
+					
+			$i++;
+		}
+		
+		$res = true;
+		try{
+			$count = self::$PDOConnection->exeс($sql_p1.$sql_p2);
+			if($count == 0) $error = self::$PDOConnection->errorCode();
+			else $error = 0;
+		}catch(Exception $e){
+			$res = false;
+			$mess = $e->getMessage();
+		}
+		
+		return ($res === true && $error === 0) ? array('status'=>true) : array('status'=>false, 'message'=>'mySQL error#'.$error, 'sql'=>$sql_p1.$sql_p2, 'error'=>$error);
+	};
     
 }?>
