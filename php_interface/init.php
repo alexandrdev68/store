@@ -11,6 +11,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/main_lib_inc.php');
 
 TEMP::init(DEFAULT_TEMPLATE);
 
+require_once($_SERVER['DOCUMENT_ROOT'].'/php_interface/db_init_inc.php');
+
 if(isset($_GET['page'])){
 	if(is_dir(PROTECTED_DIR.$_GET['page'])){
 		require_once(PROTECTED_DIR.$_GET['page'].'/model.php');

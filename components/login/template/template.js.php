@@ -20,7 +20,7 @@ function login_init(){
 				}else if(response.status == 'bad'){
 					$('div._loginAlert strong').text("<?=TEMP::$Lang['warning']?>!");
 					$('span._messtext').text(response.message);
-					$('div._loginAlert').addClass('alert-error').slideDown('fast');
+					$('div._loginAlert').addClass('alert-danger').slideDown('fast');
 				}
 				
 			},

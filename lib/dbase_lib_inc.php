@@ -98,12 +98,13 @@
 	 * @var public function
 	 */
 	public function getArray($query){
+		$arResult = array();
 		try{
-			foreach(self::$PDOConnection->query($sql, 2) as $row) {
+			foreach(self::$PDOConnection->query($query, 2) as $row) {
 		        $arResult[] = $row;
 		    }
 		}catch(PDOException $e){
-			self::addMess('mysql request error: '.$e->getMessage());
+			self::addMess('mysql request error: '.$e->getMessage(), array('sql'=>$query));
 		}
 		return count($arResult > 0) ? $arResult : false;
 	}
