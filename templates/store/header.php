@@ -6,7 +6,6 @@
 	<title><?=TEMP::$title?></title>
 	<link rel="stylesheet" href="<?=TEMP::$styles_dir?>/style.css">
 	<link rel="stylesheet" href="<?=TEMP::$curr_temp_path?>/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="<?=TEMP::$curr_temp_path?>/datepicker/css/datepicker.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="<?=TEMP::$js_dir?>/jquery-1.9.1.min.js"></script>
 	<script src="<?=TEMP::$js_dir?>/main.js"></script>

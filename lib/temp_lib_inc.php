@@ -12,6 +12,8 @@
     static $js_dir;
     static $curr_temp_path;
     static $curr_lang;
+    static $used_forms = true;
+    static $used_calendar = true;
     static $Lang = array();
 	
     function __construct(){
