@@ -18,7 +18,7 @@ ul.dropdown-menu{z-index:10000}
 header, section.main, footer {max-width:1900px; min-width:360px; position:relative; margin:0 auto; overflow:hidden;}
 header {height:150px;}
 footer {height:150px;}
-section.main {min-height:300px;}
+section.main {min-height:300px; width:99%; position:relative}
 span._href{
 	text-decoration:underline;
 	cursor:pointer;

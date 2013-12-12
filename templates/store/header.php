@@ -22,3 +22,4 @@
 		<![endif]-->
 </head>
 <body class="bg_all">
+<section class="main bg_all">
