@@ -48,20 +48,24 @@
     	return true;
     }
     
-    public function get_data($arParam = array('table'=>'', 'fields'=>'', 'where'=>'', 'limit'=>'10', 'sort'=>'ASC')){
-	$query = 'SELECT '.(@$arParam['fields'] == '' || !isset($arParam['fields']) ? '*' : $arParam['fields']).' FROM '
-						.$arParam['table'].(isset($arParam['where']) ? ' WHERE '.$arParam['where'] : '')
-						.(isset($arParam['limit']) ? ' LIMIT '.$arParam['limit'] : '')
-						.@$arParam['sort'];
-	try{
-		foreach(self::$PDOConnection->query($query, 2) as $row) {
-	        $arData[] = $row;
-	    }
-	}catch(PDOException $e){
-		return array('status'=>101, 'data'=>false, 'message'=>'query: '.$query.' return error: '.$e->getMessage());
-	}
-	
-	return array('status'=>0, 'data'=>$arData, 'message'=>'query: '.$query.' OK.');
+	static public function get_data($arParam = array('table'=>'', 'fields'=>'', 'where'=>'', 'limit'=>'10', 'sort'=>'ASC')){
+		$arData = array();
+		$query = 'SELECT '.(@$arParam['fields'] == '' || !isset($arParam['fields']) ? '*' : $arParam['fields']).' FROM '
+							.$arParam['table'].(isset($arParam['where']) ? ' WHERE '.$arParam['where'] : '')
+							.(isset($arParam['limit']) ? ' LIMIT '.$arParam['limit'] : '')
+							.@$arParam['sort'];
+		try{
+			if(!is_object(self::$PDOConnection)) throw new PDOException('don\'t connect to database');
+			$arRes = self::$PDOConnection->query($query, 2);
+			if(count($arRes) < 1 || $arRes == '') return array('status'=>0, 'data'=>array(), 'message'=>'query: '.$query.' OK.');
+			foreach($arRes as $row) {
+			  $arData[] = $row;
+			}
+		}catch(PDOException $e){
+			return array('status'=>101, 'data'=>false, 'message'=>'query: '.$query.' return error: '.$e->getMessage());
+		}
+		
+		return array('status'=>0, 'data'=>$arData, 'message'=>'query: '.$query.' OK.');
     }
     
     static protected function getData($sql){

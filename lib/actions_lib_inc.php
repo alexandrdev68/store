@@ -272,23 +272,5 @@ class Actions{
 		return json_encode($response);
 	}
 #---------------------------------------
-	function day_report_handler(){
-		$store_id = Dbase::dataFilter($_POST['store_id']);
-
-		$now = time();
-		$day = date('d', $now);
-		$month = date('m', $now);
-		$year = date('Y', $now);
-
-		$from = strtotime($day.'-'.$month.'-'.$year.' 00:00:00');
-		$to = strtotime($day.'-'.$month.'-'.$year.' 23:59:59');
-
-		$arRents = BIKE::getRentsFromPeriod($from, $to, $store_id);
-		/*foreach($arRents as $index=>$value){
-			
-		}*/
-		$response = array('status'=>'ok', 'rents'=>$arRents);
-		return json_encode($response);
-	}
 }
 ?>
