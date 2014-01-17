@@ -1,13 +1,22 @@
 <?ini_set('display_errors', 1);
 
 define("PROTECTED_DIR", $_SERVER['DOCUMENT_ROOT'].'/-protected-/');
-define("DEFAULT_TEMPLATE", 'store');
+define("DEFAULT_TEMPLATE", 'store_grids');
+define("LIB_DIR", $_SERVER['DOCUMENT_ROOT'].'/lib/');
 
 error_reporting(E_ALL);
 
 session_start(0);
 date_default_timezone_set('Europe/Kiev');
-require_once($_SERVER['DOCUMENT_ROOT'].'/lib/main_lib_inc.php');
+
+spl_autoload_register('class_autoload');
+
+function class_autoload($class){
+	$class = str_replace('\\', '/', $class);
+	require_once LIB_DIR.strtolower($class).'_lib_inc.php';
+}
+
+require_once(LIB_DIR.'ajax_engine_inc.php');
 
 TEMP::init(DEFAULT_TEMPLATE);
 
