@@ -23,3 +23,9 @@
 </head>
 <body class="bg_all">
 <section class="main bg_all">
+<?if(isset($_SESSION['CURRUSER']) && $_SESSION['CURRUSER']['user_level'] == ADMIN):?>
+<?TEMP::component('admin_panel', array('home'=>array('name'=>'Administration', 'link'=>'/main/'), 
+												'menu'=>true,
+												'search'=>false,
+										))?>
+<?endif?>

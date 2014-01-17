@@ -20,7 +20,7 @@ header {height:150px;}
 footer {height:150px;}
 section.main {min-height:300px; width:99%; position:relative}
 span._href{
-	text-decoration:underline;
+	text-decoration:none;
 	cursor:pointer;
 }
 
@@ -75,4 +75,12 @@ span.white {
 div.usListContainer{
 	position:relative;
 	overflow:auto;
+}
+
+.admin-panel{
+	left: 0;
+    position: relative;
+    top: 0;
+    width: 100%;
+    z-index: 10000;
 }

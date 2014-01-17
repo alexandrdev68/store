@@ -3,6 +3,7 @@
 define("PROTECTED_DIR", $_SERVER['DOCUMENT_ROOT'].'/-protected-/');
 define("DEFAULT_TEMPLATE", 'store_grids');
 define("LIB_DIR", $_SERVER['DOCUMENT_ROOT'].'/lib/');
+define('ADMIN', 552071);
 
 error_reporting(E_ALL);
 
