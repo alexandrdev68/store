@@ -1,6 +1,6 @@
 <nav class="navbar navbar-inverse navbar-fixed-bottom _admin-panel" role="navigation">
 	<div class="navbar-header">
-		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
 			<span class="sr-only">Toggle navigation</span>
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
@@ -9,7 +9,7 @@
 		<a class="navbar-brand" href="<?=(isset($arPar['home']['link']) ? $arPar['home']['link'] : '#')?>"><?=(isset($arPar['home']['name']) ? $arPar['home']['name'] : '')?></a>
 	</div>
 		
-<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
 	<?if(isset($arPar['menu']) && $arPar['menu'] === true):?>
 	<ul class="nav navbar-nav">
 		<li class="active"><a href="#">Link</a></li>
