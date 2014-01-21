@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-bottom _admin-panel" role="navigation">
 	<div class="navbar-header">
 		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 			<span class="sr-only">Toggle navigation</span>
@@ -30,10 +30,10 @@
 	<?endif?>
 	<?if(isset($arPar['search']) && $arPar['search'] === true):?>
 	<form class="navbar-form navbar-left" role="search">
-	<div class="form-group">
-	<input type="text" class="form-control" placeholder="Search">
-	</div>
-	<button type="submit" class="btn btn-default">Submit</button>
+		<div class="form-group">
+		<input type="text" class="form-control" placeholder="Search">
+		</div>
+		<button type="submit" class="btn btn-default">Submit</button>
 	</form>
 	<?endif?>
 </div>

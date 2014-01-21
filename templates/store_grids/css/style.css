@@ -77,10 +77,10 @@ div.usListContainer{
 	overflow:auto;
 }
 
-.admin-panel{
-	left: 0;
-    position: relative;
-    top: 0;
-    width: 100%;
-    z-index: 10000;
+._admin-panel{
+	opacity:0.1;
+}
+
+._admin-panel:hover{
+	opacity:1;
 }
