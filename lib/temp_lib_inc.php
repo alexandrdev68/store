@@ -3,7 +3,7 @@
 	 * название текущего шаблона (совпадает с названием папки в которой хранится шаблон)
 	 * @var string
 	 */
-	static $current = 'store';
+	static $current = 'store_grids';
     static $header_path;
     static $title = 'store';
     static $index_path;
@@ -14,6 +14,7 @@
     static $curr_lang;
     static $used_forms = true;
     static $used_calendar = true;
+    static $used_grid = true;
     static $Lang = array();
 	
     function __construct(){
