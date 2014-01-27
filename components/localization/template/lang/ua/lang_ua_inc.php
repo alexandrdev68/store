@@ -4,6 +4,7 @@ TEMP::$Lang = array(
 	'input_lastName'=>'Прізвище',
 	'input_patronymic'=>'По-батькові',
 	'registration'=>'Додати користувача',
+	'ap_users'=>'Користувачі',
 	'login'=>'Увійти',
 	'password'=>'Пароль',
 	'please_register'=>'Введіть дані нового користувача, будь ласка:',
