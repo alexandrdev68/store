@@ -153,3 +153,51 @@ var user = {
 			});
 		}
 };
+
+function toCenter(element){
+    if(element instanceof Object) {
+        var elPosX = ($(document).width() + $(document).scrollLeft()) / 2 - $(element).width() / 2;
+        var elPosY = ($(document).height() + $(document).scrollTop()) / 2 - $(element).height() / 2;
+        $(element).css({top : elPosY, left : elPosX});
+    };
+};
+
+function tableFromData(params){
+    params = params || {};
+    if(params.head !== undefined) this.head = params.head;
+    if(params.classes !== undefined) this.classes = params.classes;
+    else this.classes = '';
+    this.counter = false;
+    if(params.counter !== undefined) this.counter = params.counter;
+    this.rowNum = 0;
+    this.table = '';
+    
+    this.fill = function(data){
+        data = data || {};
+        this.table = '';
+        if(data.length == 0) return false;
+        tableFromData.createHead(this);
+        for(var d in data){
+            this.table += '<tr>';
+            if(this.counter){
+                this.rowNum++;
+                this.table += '<td>' + this.rowNum + '</td>';
+            }
+            for(var v in this.head){
+                this.table += '<td>' + (data[d][v] === undefined ? '' : data[d][v]) + '</td>';
+            }
+            this.table += '</tr>';
+        }
+        this.table += '</tbody></table>';
+        this.rowNum = 0;
+    };
+    
+    tableFromData.createHead = function(me){
+        me.table = '<table class="' + me.classes + '"><tbody><tr>';
+        if(me.counter) me.table += '<th>№</th>';
+        for(var v in me.head){
+            me.table += '<th>' + me.head[v] + '</th>';
+        }
+        me.table += '</tr>'
+    };
+}
