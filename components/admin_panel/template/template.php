@@ -12,7 +12,7 @@
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
 	<?if(isset($arPar['menu']) && $arPar['menu'] === true):?>
 	<ul class="nav navbar-nav">
-		<li class="active"><a href="<?='/admin/users/'?>"><?=TEMP::$Lang['ap_users']?></a><?=CURRENT_PAGE?></li>
+		<li class="active"><a href="<?='/admin/users/'?>"><?=TEMP::$Lang['ap_users']?></a></li>
 		<!-- <li><a href="#">Link</a></li>-->
 		<!-- <li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>

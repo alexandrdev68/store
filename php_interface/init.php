@@ -40,7 +40,7 @@ if(isset($_GET['page'])){
 	}
 }else{
 	//will be redirect to default page
-	echo $_GET['page'];
+	//echo $_GET['page'];
 	require_once('templates/index.php');
 }
 
