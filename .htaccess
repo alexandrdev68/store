@@ -10,7 +10,7 @@
 
   DirectoryIndex index.php
 
-  RewriteCond %{REQUEST_URI} !([templates]/) [NC]
+  RewriteCond %{REQUEST_URI} !(templates/) [NC]
   RewriteRule ([^.]+)/([0-9]{0,}) index.php?page=$1&id=$2
  
   #RewriteRule (site/) / [R=301,L]

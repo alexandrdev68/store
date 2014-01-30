@@ -1,7 +1,7 @@
 <?ini_set('display_errors', 1);
 
 define("PROTECTED_DIR", $_SERVER['DOCUMENT_ROOT'].'/-protected-/');
-define("DEFAULT_TEMPLATE", 'store_grids');
+define("CURRENT_TEMPLATE", 'store_grids');
 define("LIB_DIR", $_SERVER['DOCUMENT_ROOT'].'/lib/');
 define('ADMIN', 552071);
 
@@ -19,11 +19,13 @@ function class_autoload($class){
 
 require_once(LIB_DIR.'ajax_engine_inc.php');
 
-TEMP::init(DEFAULT_TEMPLATE);
+TEMP::init(CURRENT_TEMPLATE);
 
 require_once($_SERVER['DOCUMENT_ROOT'].'/php_interface/db_init_inc.php');
 
 if(isset($_GET['page'])){
+	define("CURRENT_PAGE", $_GET['page']);
+	//echo 'Page : "'.$_GET['page'].'"';
 	if(is_dir(PROTECTED_DIR.$_GET['page'])){
 		require_once(PROTECTED_DIR.$_GET['page'].'/model.php');
 		TEMP::component('localization', array('language'=>isset($_SESSION['user_lang']) ? $_SESSION['user_lang'] : 'ua'), false);
@@ -34,9 +36,11 @@ if(isset($_GET['page'])){
 		require_once ($_SERVER['DOCUMENT_ROOT'].'/'.TEMP::$footer_path);
 	}else{
 		//will be redirect to 404 page
+		echo '404 Page not found: "'.$_GET['page'].'"';
 	}
 }else{
 	//will be redirect to default page
+	echo $_GET['page'];
 	require_once('templates/index.php');
 }
 
