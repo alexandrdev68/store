@@ -1,6 +1,6 @@
 <?php
 /*
- * $arParam = array(
+ * $arPar = array(
 	'action'=>'',
 	'name'=>'',
 	'class'=>'',
@@ -62,34 +62,38 @@
 );
  * 
  * */
-if(!isset($arParam['class'])){
-	$arParam['class'] = '';
+if(!isset($arPar['class'])){
+	$arPar['class'] = '';
 }
-if(!isset($arParam['id'])){
-	$arParam['id'] = 'frm_id_gen_'.rand(1, 9999999);
+if(!isset($arPar['id'])){
+	$arPar['id'] = 'frm_id_gen_'.rand(1, 9999999);
 }
-if(!isset($arParam['name'])){
-	$arParam['name'] = 'frm_name_gen_'.rand(1, 9999999);
+if(!isset($arPar['name'])){
+	$arPar['name'] = 'frm_name_gen_'.rand(1, 9999999);
 }
-if(!isset($arParam['type'])){
-	$arParam['type'] = 'inline';
+if(!isset($arPar['type'])){
+	$arPar['type'] = 'inline';
 }
-if(!isset($arParam['action'])){
-	$arParam['action'] = '';
+if(!isset($arPar['action'])){
+	$arPar['action'] = '';
 }
-if(!isset($arParam['fields'])){
-	$arParam['fields'] = array();
+if(!isset($arPar['fields'])){
+	$arPar['fields'] = array();
 }
-if(!isset($arParam['buttons'])){
-	$arParam['buttons'] = array('submit'=>array('value'=>'OK'));
+if(!isset($arPar['buttons'])){
+	$arPar['buttons'] = array('submit'=>array('value'=>'OK'));
+}
+if(!isset($arPar['method'])){
+	$arPar['method'] = 'POST';
 }
 
 $arFieldType = array(
 	'text'=>'form-group',
 	'checkbox'=>'checkbox',
 	'textarea'=>'form-group',
-	'radio'=>'form-group',
+	'radio'=>'radio',
 	'hidden'=>'form-group',
+	'select'=>'form-control',
 );
 ?>
 
