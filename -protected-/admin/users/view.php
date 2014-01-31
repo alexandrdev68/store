@@ -1,41 +1,54 @@
 <?
-$arParams = array('action'=>'',
+$arParams = array(
+	'action'=>'add_user',
 	'name'=>'testForm',
-	'class'=>'inline',
-	'id'=>'',
+	'class'=>'form-inline',
+	'id'=>'add_user_form',
 	'method'=>'POST',
 	'type'=>'inline',
 	'fields'=>array(
-		'text'=>array(
+		0=>array(
+			'type'=>'email',
 			'label'=>'test text field',
 			'value'=>'',
 			'name'=>'uEmail',
 			'validate'=>'email'
 		),
-		'radio'=>array(
+		5=>array(
+			'type'=>'file',
+			'label'=>'test file field',
+			'value'=>'',
+			'name'=>'uFile',
+		),
+		10=>array(
+			'type'=>'radio',
 			'label'=>'test label field',
 			'name'=>'uRadio',
 			'value'=>'yes',
 		),
-		'radio'=>array(
+		20=>array(
 			'label'=>'test label1 field',
 			'name'=>'uRadio',
 			'value'=>'no',
+			'type'=>'radio',
 		),
-		'checkbox'=>array(
+		30=>array(
 			'label'=>'test checkbox',
 			'name'=>'uCheckbox',
 			'value'=>'y',
+			'type'=>'checkbox',
 		),
-		'textarea'=>array(
+		40=>array(
 			'cols'=>'50',
 			'rows'=>'5',
 			'label'=>'test textarea label',
 			'validate'=>'',
 			'value'=>'kokokokokoo',
-			'name'=>'uTextarea'
+			'name'=>'uTextarea',
+			'type'=>'textarea',
 		),
-		'select'=>array(
+		50=>array(
+			'type'=>'select',
 			'label'=>'test select label',
 			'name'=>'uSelect',
 			'multiple'=>'0',
@@ -44,22 +57,26 @@ $arParams = array('action'=>'',
 				1=>array('value'=>'2', 'text'=>'two'),
 			),
 		),
-		'hidden'=>array(
+		60=>array(
 			'name'=>'uHidden',
 			'value'=>'test',
+			'type'=>'hidden',
 		),
 	),
 	'buttons'=>array(
-		'submit'=>array(
-			'class'=>'btn btn-default',
+		0=>array(
+			'class'=>'btn btn-primary"',
 			'name'=>'uButton',
 			'id'=>'',
-			'value'=>'ok'
+			'value'=>'ok',
+			'type'=>'button',
+			'role'=>'submit'
 		),
-		'button'=>array(
+		1=>array(
 			'class'=>'btn btn-default',
 			'id'=>'',
-			'value'=>'cancel'
+			'value'=>'cancel',
+			'type'=>'button',
 		),
 	),
 );

@@ -1,62 +1,75 @@
 <?php
 /*
- * $arPar = array(
-	'action'=>'',
-	'name'=>'',
-	'class'=>'',
+ * $arParams = array('action'=>'',
+	'name'=>'testForm',
+	'class'=>'inline',
 	'id'=>'',
-	'type'=>'inline',
+	'method'=>'POST',
+	'type'=>'inline',//form-horizontal form-inline
 	'fields'=>array(
-		'text'=>array(
-			'label'=>'',
+		0=>array(
+			'type'=>'text',
+			'label'=>'test text field',
 			'value'=>'',
-			'name'=>'',
+			'name'=>'uEmail',
 			'validate'=>'email'
 		),
-		'radio'=>array(
-			'label'=>'',
-			'name'=>'',
-			'value'=>'',
+		1=>array(
+			'type'=>'radio',
+			'label'=>'test label field',
+			'name'=>'uRadio',
+			'value'=>'yes',
 		),
-		'checkbox'=>array(
-			'label'=>'',
-			'name'=>'',
-			'value'=>'',
+		2=>array(
+			'label'=>'test label1 field',
+			'name'=>'uRadio',
+			'value'=>'no',
+			'type'=>'radio',
 		),
-		'textarea'=>array(
-			'cols'=>'',
-			'rows'=>'',
-			'label'=>'',
+		3=>array(
+			'label'=>'test checkbox',
+			'name'=>'uCheckbox',
+			'value'=>'y',
+			'type'=>'checkbox',
+		),
+		4=>array(
+			'cols'=>'50',
+			'rows'=>'5',
+			'label'=>'test textarea label',
 			'validate'=>'',
-			'value'=>'',
-			'name'=>''
+			'value'=>'kokokokokoo',
+			'name'=>'uTextarea'
+			'type'=>'textarea',
 		),
-		'select'=>array(
-			'label'=>'',
-			'name'=>'',
-			'multiple'=>'1',
+		5=>array(
+			'type'=>'select',
+			'label'=>'test select label',
+			'name'=>'uSelect',
+			'multiple'=>'0',
 			'option'=>array(
-				0=>array('value'=>'', 'text'=>''),
-				1=>array(),
+				0=>array('value'=>'1', 'text'=>'one'),
+				1=>array('value'=>'2', 'text'=>'two'),
 			),
 		),
-		'hidden'=>array(
-			'label'=>'',
-			'name'=>'',
-			'value'=>'',
+		6=>array(
+			'name'=>'uHidden',
+			'value'=>'test',
+			'type'=>'hidden',
 		),
 	),
 	'buttons'=>array(
-		'submit'=>array(
-			'class'=>'',
-			'name'=>'',
+		0=>array(
+			'class'=>'btn btn-default',
+			'name'=>'uButton',
 			'id'=>'',
-			'value'=>''
+			'value'=>'ok',
+			'type'=>'submit',
 		),
-		'button'=>array(
-			'class'=>'',
+		1=>array(
+			'class'=>'btn btn-default',
 			'id'=>'',
-			'value'=>''
+			'value'=>'cancel',
+			'type'=>'button',
 		),
 	),
 );
@@ -65,8 +78,8 @@
 if(!isset($arPar['class'])){
 	$arPar['class'] = '';
 }
-if(!isset($arPar['id'])){
-	$arPar['id'] = 'frm_id_gen_'.rand(1, 9999999);
+if(empty($arPar['id'])){
+	exit;
 }
 if(!isset($arPar['name'])){
 	$arPar['name'] = 'frm_name_gen_'.rand(1, 9999999);
@@ -81,7 +94,7 @@ if(!isset($arPar['fields'])){
 	$arPar['fields'] = array();
 }
 if(!isset($arPar['buttons'])){
-	$arPar['buttons'] = array('submit'=>array('value'=>'OK'));
+	$arPar['buttons'] = array('0'=>array('value'=>'OK', 'type'=>'submit'));
 }
 if(!isset($arPar['method'])){
 	$arPar['method'] = 'POST';
@@ -93,8 +106,22 @@ $arFieldType = array(
 	'textarea'=>'form-group',
 	'radio'=>'radio',
 	'hidden'=>'form-group',
-	'select'=>'form-control',
+	'select'=>'form-group',
+	'email'=>'form-group',
+	'password'=>'form-group',
+	'file'=>'form-group',
 );
+
+if(!empty($_POST['anyForm_id']) && $_POST['anyForm_id'] == $arPar['id']){
+	
+	foreach($_POST as $name=>$value){
+		$_POST[$name] = Dbase::dataFilter($_POST[$name]);
+	}
+	
+	ob_clean();
+	echo json_encode(array('status'=>'ok', 'id'=>$_POST['anyForm_id']));
+	exit;
+}
 ?>
 
 
