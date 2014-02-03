@@ -16,6 +16,7 @@
     static $used_calendar = true;
     static $used_grid = true;
     static $Lang = array();
+    static $Errors = array();
 	
     function __construct(){
 		
@@ -80,6 +81,51 @@
 	    	break;
 	  }
 	}
+	
+	
+	/**
+	 * Возвращает код ошибки или 0, если ошибок нет. Передаем результат проверки (или запроса) типа boolean и код операции.
+	 * Пример: TEMP::get_status(true, 'email');
+	 * @var function
+	 */
+	static public function get_status($boolean, $type){
+		$errnum = 1900;
+		if($boolean) return 0;
+		switch($type){
+		case 'email':
+	      	return $errnum;
+			break;
+	    case 'card':
+	      	return $errnum + 1;
+	      	break;
+	    case 'cvv':
+	      	return $errnum + 2;
+			break;
+	    case 'owner':
+	      	return $errnum + 3;
+	      	break;
+	    case 'expiry':
+	      	return $errnum + 4;
+	      	break;
+	    case 'wallet_id':
+	      	return $errnum + 5;
+	      	break;
+	    case 'phone':
+	      	return $errnum + 6;
+	      	break;
+	    case 'summ':
+	    	return $errnum + 7;
+			break;
+		}
+	}
     
     
+	/**
+	 * Возвращает текст ошибки. В качестве параметра передаем код ошибки возвращенный функцией get_status.
+	 * Пример: TEMP::get_error(1900);
+	 * @var function
+	 */
+	static public function get_error_text($code){
+    	return isset(self::$Errors[$code]) ? self::$Errors[$code] : 'unknown error #'.$code;
+    }
 }?>

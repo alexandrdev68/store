@@ -1,6 +1,6 @@
 <form role="form" class="<?=$arPar['class']?>" method="<?=$arPar['method']?>" id="<?=$arPar['id']?>" name="<?=$arPar['name']?>" action="<?=$arPar['action']?>">
   <?foreach($arPar['fields'] as $index=>$fParams){?>
-  <?if($fParams == 'divider'):?><div class="clear"></div><?continue?><?endif?>
+  <?if($fParams == 'divider'):?><div class="clear_anyForm"></div><?continue?><?endif?>
   <div class="<?=$arFieldType[$fParams['type']]?>">
     <?$idLabel = 'id_for_fLabel_'.rand(1, 9999999)?>
   	<?if($fParams['type'] == 'text' || $fParams['type'] == 'hidden' || $fParams['type'] == 'file' || $fParams['type'] == 'email' || $fParams['type'] == 'password'){?>

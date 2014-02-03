@@ -84,3 +84,10 @@ div.usListContainer{
 ._admin-panel:hover{
 	opacity:1;
 }
+
+div.clear_anyForm{
+	display: block;
+	clear: both;
+	width: 100%;
+	height: 10px;
+}

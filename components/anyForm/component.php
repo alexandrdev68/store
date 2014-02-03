@@ -120,13 +120,22 @@ if(!empty($_POST['anyForm_id']) && $_POST['anyForm_id'] == $arPar['id']){
 	foreach($arPar['fields'] as $index=>$value){
 		if(is_array($value)){
 			if(isset($value['validate'])){
-				
+				$res = TEMP::validate($_POST[$value['name']], $value['validate']);
+				$res = TEMP::get_status($res, $value['validate']);
+				$message = TEMP::get_error_text($res);
+				if($res !== 0){
+					//bad response handler
+					ob_clean();
+					echo json_encode(array('status'=>'ok', 'id'=>$_POST['anyForm_id'], 'POST'=>$_POST));
+					exit;
+				}else{
+					//good response handler
+					
+				}
 			}
 		}
 	}
-	ob_clean();
-	echo json_encode(array('status'=>'ok', 'id'=>$_POST['anyForm_id'], 'POST'=>$_POST));
-	exit;
+	
 }
 ?>
 
