@@ -117,9 +117,15 @@ if(!empty($_POST['anyForm_id']) && $_POST['anyForm_id'] == $arPar['id']){
 	foreach($_POST as $name=>$value){
 		$_POST[$name] = Dbase::dataFilter($_POST[$name]);
 	}
-	
+	foreach($arPar['fields'] as $index=>$value){
+		if(is_array($value)){
+			if(isset($value['validate'])){
+				
+			}
+		}
+	}
 	ob_clean();
-	echo json_encode(array('status'=>'ok', 'id'=>$_POST['anyForm_id']));
+	echo json_encode(array('status'=>'ok', 'id'=>$_POST['anyForm_id'], 'POST'=>$_POST));
 	exit;
 }
 ?>

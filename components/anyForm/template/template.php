@@ -1,5 +1,6 @@
 <form role="form" class="<?=$arPar['class']?>" method="<?=$arPar['method']?>" id="<?=$arPar['id']?>" name="<?=$arPar['name']?>" action="<?=$arPar['action']?>">
   <?foreach($arPar['fields'] as $index=>$fParams){?>
+  <?if($fParams == 'divider'):?><div class="clear"></div><?continue?><?endif?>
   <div class="<?=$arFieldType[$fParams['type']]?>">
     <?$idLabel = 'id_for_fLabel_'.rand(1, 9999999)?>
   	<?if($fParams['type'] == 'text' || $fParams['type'] == 'hidden' || $fParams['type'] == 'file' || $fParams['type'] == 'email' || $fParams['type'] == 'password'){?>
@@ -11,7 +12,7 @@
     	</label>
     <?}elseif($fParams['type'] == 'textarea'){?>
     	<?if(isset($fParams['label'])):?><label for="<?=$idLabel?>"><?=$fParams['label']?></label><?endif?>
-    	<textarea id="<?=$idLabel?>" cols="<?=(isset($fParams['cols']) ? $fParams['cols'] : '1')?>" rows="<?=(isset($fParams['rows']) ? $fParams['rows'] : '1')?>" name="<?=(isset($fParams['name']) ? $fParams['name'] : '')?>" <?if(isset($fParams['validate'])):?>data-validate="<?=$fParams['validate']?>"<?endif?>><?=(isset($fParams['value']) ? $fParams['value'] : '')?>	</textarea>
+    	<textarea id="<?=$idLabel?>" cols="<?=(isset($fParams['cols']) ? $fParams['cols'] : '1')?>" rows="<?=(isset($fParams['rows']) ? $fParams['rows'] : '1')?>" name="<?=(isset($fParams['name']) ? $fParams['name'] : '')?>" <?if(isset($fParams['validate'])):?>data-validate="<?=$fParams['validate']?>"<?endif?>><?=(isset($fParams['value']) ? $fParams['value'] : '')?></textarea>
     <?}elseif($fParams['type'] == 'select'){?>
     	<?if(isset($fParams['label'])):?><label for="<?=$idLabel?>"><?=$fParams['label']?></label><?endif?>
     	<select class="<?=$arFieldType[$fParams['type']]?>" id="<?=$idLabel?>" <?if(isset($fParams['multiple']) && $fParams['multiple'] == '1'):?>multiple<?endif?> name="<?=(isset($fParams['name']) ? $fParams['name'] : '')?>">

@@ -47,5 +47,39 @@
             }     
     }
     
+	/**
+	 * Валидирует значение $value по переданому типу $type, возвращает true если соответствует типу
+	 * Пример: TEMP::validate('i@ua', 'email');
+	 * @var function
+	 */
+    static public function validate($value, $type){
+	  switch($type){
+	    case 'email':
+	      return preg_match('/^[a-zA-Z0-9][-._a-zA-Z0-9]+@(?:[-a-zA-Z0-9]+\.)+[a-zA-Z]{2,6}$/', $value);
+	      break;
+	    case 'card':
+	      return preg_match('/^[0-9]{14,19}$/', $value);
+	      break;
+	    case 'cvv':
+	      return preg_match('/^[0-9]{3,3}$/', $value);
+	      break;
+	    case 'owner':
+	      return preg_match('/^[A-Za-z\-\ ]{3,}$/', $value);
+	      break;
+	    case 'expiry':
+	      return preg_match('/^[0-9]{4,4}$/', $value);
+	      break;
+	    case 'wallet_id':
+	      return preg_match('/^[0-9]{14,14}$/', $value);
+	      break;
+	    case 'phone':
+	      return preg_match('/^[0-9]{12,13}$/', $value);
+	      break;
+	    case 'summ':
+	    	return preg_match('/^([0-9]{1,})$|^[0-9]{1,}\\.(?:[0-9]{1,2})$/', $value);
+	    	break;
+	  }
+	}
+    
     
 }?>

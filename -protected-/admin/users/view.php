@@ -14,6 +14,7 @@ $arParams = array(
 			'name'=>'uEmail',
 			'validate'=>'email'
 		),
+		3=>'divider',
 		5=>array(
 			'type'=>'file',
 			'label'=>'test file field',
@@ -38,6 +39,7 @@ $arParams = array(
 			'value'=>'y',
 			'type'=>'checkbox',
 		),
+		45=>'divider',
 		40=>array(
 			'cols'=>'50',
 			'rows'=>'5',
