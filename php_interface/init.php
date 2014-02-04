@@ -17,11 +17,11 @@ function class_autoload($class){
 	require_once LIB_DIR.strtolower($class).'_lib_inc.php';
 }
 
-require_once(LIB_DIR.'ajax_engine_inc.php');
-
 TEMP::init(CURRENT_TEMPLATE);
 
 require_once($_SERVER['DOCUMENT_ROOT'].'/php_interface/db_init_inc.php');
+
+if(!isset($_GET['page'])) require_once(LIB_DIR.'ajax_engine_inc.php');
 
 if(isset($_GET['page'])){
 	define("CURRENT_PAGE", $_GET['page']);
@@ -29,9 +29,10 @@ if(isset($_GET['page'])){
 	if(is_dir(PROTECTED_DIR.$_GET['page'])){
 		require_once(PROTECTED_DIR.$_GET['page'].'/model.php');
 		TEMP::component('localization', array('language'=>isset($_SESSION['user_lang']) ? $_SESSION['user_lang'] : 'ua'), false);
+		require_once(PROTECTED_DIR.$_GET['page'].'/controller.php');
+		require_once(LIB_DIR.'ajax_engine_inc.php');
 		//ob_clean();
 		require_once ($_SERVER['DOCUMENT_ROOT'].'/'.TEMP::$header_path);
-		require_once(PROTECTED_DIR.$_GET['page'].'/controller.php');
 		require_once(PROTECTED_DIR.$_GET['page'].'/view.php');
 		require_once ($_SERVER['DOCUMENT_ROOT'].'/'.TEMP::$footer_path);
 	}else{

@@ -1,6 +1,9 @@
 <?php
 //controller file
-class mainController extends Actions{
+namespace admin\users;
+
+class Actions extends \Actions{
 	
 }
+
 ?>
