@@ -5,7 +5,7 @@
     <?$idLabel = 'id_for_fLabel_'.rand(1, 9999999)?>
   	<?if($fParams['type'] == 'text' || $fParams['type'] == 'hidden' || $fParams['type'] == 'file' || $fParams['type'] == 'email' || $fParams['type'] == 'password'){?>
   	<?if(isset($fParams['label'])):?><label for="<?=$idLabel?>"><?=$fParams['label']?></label><?endif?>
-    <input type="<?=$fParams['type']?>" class="<?=($fParams['type'] == 'file' ? '' : 'form-control')?>" id="<?=$idLabel?>" placeholder="<?=$fParams['label']?>" name="<?=(isset($fParams['name']) ? $fParams['name'] : '')?>" value="<?=(isset($fParams['value']) ? $fParams['value'] : '')?>" <?if(isset($fParams['validate'])):?>data-validate="<?=$fParams['validate']?>"<?endif?>>
+    <input type="<?=$fParams['type']?>" class="<?=($fParams['type'] == 'file' ? '' : 'form-control')?>" id="<?=$idLabel?>" placeholder="<?=@$fParams['label']?>" name="<?=(isset($fParams['name']) ? $fParams['name'] : '')?>" value="<?=(isset($fParams['value']) ? $fParams['value'] : '')?>" <?if(isset($fParams['validate'])):?>data-validate="<?=$fParams['validate']?>"<?endif?>>
     <?}elseif($fParams['type'] == 'checkbox' || $fParams['type'] == 'radio'){?>
     	<label class="checkbox-inline">
     		<input type="<?=$fParams['type']?>" name="<?=(isset($fParams['name']) ? $fParams['name'] : '')?>"><?=$fParams['label']?>

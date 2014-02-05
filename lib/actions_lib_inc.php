@@ -1,6 +1,7 @@
 <?php 
 class Actions{
 #---------------------------------------
+	
 	function registr_action_handler(){
 		$id_user = Dbase::dataFilter(@$_POST['uLogin']);
 		$user_level = (string)Dbase::dataFilter(@$_POST['uLevel']);

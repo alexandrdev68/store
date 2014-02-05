@@ -114,19 +114,19 @@ $arFieldType = array(
 
 if(!empty($_POST['anyForm_id']) && $_POST['anyForm_id'] == $arPar['id']){
 	
-	foreach($_POST as $name=>$value){
-		$_POST[$name] = Dbase::dataFilter($_POST[$name]);
+	foreach($_POST as $iname=>$value){
+		$_POST[$iname] = Dbase::dataFilter($_POST[$iname]);
 	}
 	foreach($arPar['fields'] as $index=>$value){
 		if(is_array($value)){
-			if(isset($value['validate'])){
+			if(!empty($value['validate'])){
 				$res = TEMP::validate($_POST[$value['name']], $value['validate']);
 				$res = TEMP::get_status($res, $value['validate']);
 				$message = TEMP::get_error_text($res);
 				if($res !== 0){
 					//bad response handler
 					ob_clean();
-					echo json_encode(array('status'=>'ok', 'id'=>$_POST['anyForm_id'], 'POST'=>$_POST));
+					echo json_encode(array('status'=>'ok', 'id'=>$_POST['anyForm_id'], 'message'=>$message, 'validate'=>$value['validate']));
 					exit;
 				}else{
 					//good response handler
@@ -135,7 +135,19 @@ if(!empty($_POST['anyForm_id']) && $_POST['anyForm_id'] == $arPar['id']){
 			}
 		}
 	}
-	
+	$method = 'anyFormAction_'.$_POST['anyForm_action'];
+	$classname = str_replace('/', '\\', (isset($_GET['page']) ? $_GET['page'] : '\\')).'\Actions';
+	$actions = new $classname;
+	if(method_exists($actions, $method)){
+		ob_clean();
+		echo $actions->$method();
+		exit;
+	}
+	else{
+		ob_clean();
+		echo json_encode(array('status'=>'bad', 'message'=>'method '.$method.' is not exists', 'object'=>$classname));
+		
+	}
 }
 ?>
 

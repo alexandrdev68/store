@@ -44,7 +44,6 @@ $arParams = array(
 			'cols'=>'50',
 			'rows'=>'5',
 			'label'=>'test textarea label',
-			'validate'=>'',
 			'value'=>'kokokokokoo',
 			'name'=>'uTextarea',
 			'type'=>'textarea',

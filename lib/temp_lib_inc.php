@@ -40,11 +40,11 @@
 	 * Пример: TEMP::component('myComponent', array('name'=>'Jon'));
 	 * @var function
 	 */
-    static public function component($name, $arPar, $template = true){
-            include($_SERVER['DOCUMENT_ROOT'].'/components/'.$name.'/component.php');
+    static public function component($cname, $arPar, $template = true){
+            include($_SERVER['DOCUMENT_ROOT'].'/components/'.$cname.'/component.php');
             if($template){
-            	if(file_exists($_SERVER['DOCUMENT_ROOT'].'/components/'.$name.'/template/template.js.php')) include($_SERVER['DOCUMENT_ROOT'].'/components/'.$name.'/template/template.js.php');
-            	include($_SERVER['DOCUMENT_ROOT'].'/components/'.$name.'/template/template.php');
+            	if(file_exists($_SERVER['DOCUMENT_ROOT'].'/components/'.$cname.'/template/template.js.php')) include($_SERVER['DOCUMENT_ROOT'].'/components/'.$cname.'/template/template.js.php');
+            	include($_SERVER['DOCUMENT_ROOT'].'/components/'.$cname.'/template/template.php');
             }     
     }
     

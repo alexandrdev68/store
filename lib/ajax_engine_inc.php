@@ -10,9 +10,8 @@ if(isset($_POST['action'])){
 		TEMP::component('localization', array('language'=>isset($_SESSION['user_lang']) ? $_SESSION['user_lang'] : 'ua'), false);
 		$actions = new Actions();
 	}else{
-		
-			$actions = new __NAMESPAE__.'\\'.'Actions';
-		
+		echo __NAMESPACE__.'\\'.'Actions'; die();
+		//$actions = new __NAMESPACE__.'\\'.'Actions';
 	}
 	
 	$method = $_POST['action'].'_handler';
